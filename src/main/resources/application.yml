@@ -1,0 +1,16 @@
+queryconfig:
+  host: "api.stackexchange.com"
+  api: "2.2"
+  order: "desc"
+  sort: "activity"
+  site: "stackoverflow"
+
+spring:
+  mvc:
+     view:
+        prefix: /WEB-INF/views/
+        suffix: .jsp
+     static-path-pattern: /resources/static/**
+
+server:
+  port: 8080 # tomcat
