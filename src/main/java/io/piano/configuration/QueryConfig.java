@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class QueryConfig {
 
     private String host;
+    private Boolean useSsl;
     private String api;
     private String order;
     private String sort;
@@ -18,6 +19,14 @@ public class QueryConfig {
 
     public String getHost() {
         return host;
+    }
+
+    public Boolean getUseSsl() {
+        return useSsl;
+    }
+
+    public void setUseSsl(Boolean useSsl) {
+        this.useSsl = useSsl;
     }
 
     public void setHost(String host) {
@@ -57,6 +66,7 @@ public class QueryConfig {
     }
 
     public String getRequestUri() {
-        return String.format("%s://%s/%s/search?order=%s&sort=%s&site=%s&filter=!DEQVrwsVXl(pjJFkKtomfQ_xPfIUKdKuXZQFzxg*--mR6Es9YqP&intitle=", "https", host, api, order, sort, site);
+        String protocol = getUseSsl() ? "https" : "http";
+        return String.format("%s://%s/%s/search?order=%s&sort=%s&site=%s&filter=!DEQVrwsVXl(pjJFkKtomfQ_xPfIUKdKuXZQFzxg*--mR6Es9YqP&intitle=", protocol, host, api, order, sort, site);
     }
 }

@@ -1,5 +1,6 @@
 queryconfig:
   host: "api.stackexchange.com"
+  useSsl: false
   api: "2.2"
   order: "desc"
   sort: "activity"
