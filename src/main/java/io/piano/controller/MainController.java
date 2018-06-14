@@ -1,15 +1,11 @@
 package io.piano.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.piano.configuration.QueryConfig;
-import io.piano.response.StackResponse;
 import io.piano.sender.RestSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainController {
@@ -19,16 +15,18 @@ public class MainController {
     @Autowired
     private QueryConfig config;
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     @RequestMapping(value ="/", method = RequestMethod.GET)
     public String index() {
         return "index";
     }
 
     @PostMapping("/getResult")
-    public String getResult(@RequestBody String title, Model model) {
-        StackResponse resp = rest.sendRequest(
+    @ResponseBody
+    public String getResult(@RequestBody String title) {
+        String json = rest.sendRequest(
                 new StringBuilder().append(config.getRequestUri()).append(title).toString());
-        model.addAttribute("resp", resp);
-        return "result";
+        return json;
     }
 }

@@ -110,7 +110,7 @@ body {
     text-decoration:underline;
 }
 
-#font-text {
+.font-text {
     color: #666;
     font-weight: bold;
 }

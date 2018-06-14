@@ -11,6 +11,10 @@ public class StackResponse {
 
     private List<StackDto> items;
 
+    public StackResponse(List<StackDto> items) {
+        this.items = items;
+    }
+
     public List<StackDto> getItems() {
         return items;
     }

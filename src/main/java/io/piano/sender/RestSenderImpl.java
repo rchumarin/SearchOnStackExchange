@@ -30,8 +30,8 @@ public class RestSenderImpl implements RestSender {
     private CloseableHttpClient httpclient = HttpClients.createDefault();
 
     @Override
-    public StackResponse sendRequest(String absoluteUri) {
-        StackResponse resp = new StackResponse();
+    public String sendRequest(String absoluteUri) {
+        String jsonData = null;
         if (Objects.nonNull(absoluteUri)) {
             HttpGet httpget = new HttpGet(absoluteUri);
             try (CloseableHttpResponse response = httpclient.execute(httpget)) {
@@ -39,14 +39,13 @@ public class RestSenderImpl implements RestSender {
                     throw new IOException(EntityUtils.toString(response.getEntity()));
                 }
                 List<StackDto> list = getStackDto(response);
-
-                resp.setItems(list);
-
+                StackResponse resp = new StackResponse(list);
+                jsonData = objectMapper.writeValueAsString(resp);
             } catch (Exception ex) {
                 Logger.error("[SEND REST REQUEST] Error", ex);
             }
         }
-        return resp;
+        return jsonData;
     }
 
     private List<StackDto> getStackDto(CloseableHttpResponse response) throws IOException {
