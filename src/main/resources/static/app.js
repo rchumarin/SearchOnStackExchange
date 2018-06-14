@@ -17,7 +17,7 @@ function getRest() {
 		}
 
 		xhr.onreadystatechange = function () {
-			if (xhr.status == 200) {
+			if (this.readyState == 4 && xhr.status == 200) {
 				if (document.getElementById('res')) {
 					document.getElementById('res').remove();
 				}

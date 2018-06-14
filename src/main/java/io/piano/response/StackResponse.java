@@ -1,23 +1,21 @@
 package io.piano.response;
 
-import io.piano.model.StackExchange;
+import io.piano.dto.StackDto;
 
 import java.util.List;
 
 /**
- * Response from Stackexchange
+ * Response to client
  */
 public class StackResponse {
 
-    private List<StackExchange> items;
+    private List<StackDto> items;
 
-    public List<StackExchange> getItems() {
+    public List<StackDto> getItems() {
         return items;
     }
 
-    public void setItems(List<StackExchange> items) {
+    public void setItems(List<StackDto> items) {
         this.items = items;
     }
-
-
 }

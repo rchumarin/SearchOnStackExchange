@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:choose>
   <c:when test="${not empty resp.items}">
@@ -10,18 +11,18 @@
       </tr>
       <c:forEach items="${resp.items}" var="item">
         <c:choose>
-          <c:when test="${item.getAnswer_count() > 0}">
+          <c:when test="${item.getAnswerCount() > 0}">
             <tr id="font-text">
-              <td>${item.getCreation_date()}</td>
-              <td>${item.getOwner().getDisplay_name()}</td>
+              <td>${item.getDate()}</td>
+              <td>${item.getAuthor()}</td>
               <td>${item.getTitle()}</td>
               <td><a href="${item.getLink()}" target="_blank">view</a></td>
             </tr>
           </c:when>
           <c:otherwise>
             <tr>
-              <td>${item.getCreation_date()}</td>
-              <td>${item.getOwner().getDisplay_name()}</td>
+              <td>${item.getDate()}</td>
+              <td>${item.getAuthor()}</td>
               <td>${item.getTitle()}</td>
               <td><a href="${item.getLink()}" target="_blank">view</a></td>
             </tr>

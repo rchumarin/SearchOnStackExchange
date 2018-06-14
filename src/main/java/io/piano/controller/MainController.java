@@ -26,9 +26,9 @@ public class MainController {
 
     @PostMapping("/getResult")
     public String getResult(@RequestBody String title, Model model) {
-        StackResponse stackResponse = rest.sendRequest(
+        StackResponse resp = rest.sendRequest(
                 new StringBuilder().append(config.getRequestUri()).append(title).toString());
-        model.addAttribute("resp", stackResponse);
+        model.addAttribute("resp", resp);
         return "result";
     }
 }

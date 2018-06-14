@@ -1,10 +1,9 @@
 package io.piano;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.piano.configuration.QueryConfig;
-import io.piano.model.StackExchange;
-import io.piano.response.StackResponse;
+import io.piano.model.StackResult;
 import io.piano.sender.RestSender;
-import io.piano.util.JacksonObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +26,6 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,7 +57,7 @@ public class ApplicationTests {
 
 	@Test
 	public void shouldReturnNullWhenNullUri() {
-		assertNull(rest.sendRequest(null));
+		assertNotNull(rest.sendRequest(null));
 	}
 
 	@Test
@@ -72,21 +70,18 @@ public class ApplicationTests {
 
 	@Test
 	public void shouldReturnStackResponse() throws Exception {
-		String json = readLineByLineJava("src/test/resources/example.json");
-		StackResponse response = JacksonObjectMapper.parseJson(json, StackResponse.class);
-		StackExchange stackExchange = response.getItems().get(0);
-		assertNotNull(stackExchange);
-		assertNotNull(stackExchange.getOwner());
-		assertNotNull(stackExchange.getOwner().getDisplay_name());
-		assertNotNull(stackExchange.getTitle());
-		assertNotNull(stackExchange.getQuestion_id());
-		assertNotNull(stackExchange.getLink());
-		assertNotNull(stackExchange.getAnswer_count());
-		assertNotNull(stackExchange.getCreation_date());
-		assertNotNull(stackExchange.getLast_activity_date());
+		String json = readJson("src/test/resources/example.json");
+		ObjectMapper objectMapper = new ObjectMapper();
+		StackResult result = objectMapper.readValue(json, StackResult.class);
+
+		result.getItems().forEach(i -> assertNotNull(i));
+		assertNotNull(result.getHas_more());
+		assertNotNull(result.getItems());
+		assertNotNull(result.getQuota_max());
+		assertNotNull(result.getQuota_remaining());
 	}
 
-	private static String readLineByLineJava(String filePath) {
+	private static String readJson(String filePath) {
 		StringBuilder contentBuilder = new StringBuilder();
 		try (Stream<String> stream = Files.lines( Paths.get(filePath), StandardCharsets.UTF_8)) {
 			stream.forEach(s -> contentBuilder.append(s).append("\n"));

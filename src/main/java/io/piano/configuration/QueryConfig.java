@@ -67,6 +67,6 @@ public class QueryConfig {
 
     public String getRequestUri() {
         String protocol = getUseSsl() ? "https" : "http";
-        return String.format("%s://%s/%s/search?order=%s&sort=%s&site=%s&filter=!DEQVrwsVXl(pjJFkKtomfQ_xPfIUKdKuXZQFzxg*--mR6Es9YqP&intitle=", protocol, host, api, order, sort, site);
+        return String.format("%s://%s/%s/search?order=%s&sort=%s&site=%s&intitle=", protocol, host, api, order, sort, site);
     }
 }
