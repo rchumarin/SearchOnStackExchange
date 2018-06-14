@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -57,7 +58,7 @@ public class ApplicationTests {
 
 	@Test
 	public void shouldReturnNullWhenNullUri() {
-		assertNotNull(rest.sendRequest(null));
+		assertNull(rest.sendRequest(null));
 	}
 
 	@Test
